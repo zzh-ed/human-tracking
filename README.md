@@ -39,7 +39,7 @@ Finally, before running the demo, you need to download "cfg" and "models" folder
 
 https://drive.google.com/drive/folders/1-cxxqK9lYUKd9GVFlPR_Za5M3cz5kBU-?usp=sharing
 
-https://drive.google.com/drive/folders/1-cxxqK9lYUKd9GVFlPR_Za5M3cz5kBU-?usp=sharing
+https://drive.google.com/drive/folders/1oD-vzdxBapUom-QFCfBS-1abNfoHp11P?usp=sharing
 
 
 ## DEMO
