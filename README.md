@@ -57,3 +57,9 @@ python demo.py --input demo_query.jpg --video demo_video.mp4
 After running the demo, you can check your output in the "output" folder.
 
 PS: If the performance of the model is bad on your video, you can adjust the threshold parameter in demo.py.
+
+
+## Reference:
+- [1] https://github.com/foolwood/SiamMask
+- [2] https://github.com/layumi/Person_reID_baseline_pytorch
+- [3] https://pjreddie.com/darknet/yolo/
