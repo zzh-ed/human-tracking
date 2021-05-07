@@ -35,6 +35,13 @@ Add the project to your PYTHONPATH:
 export PYTHONPATH=$PWD:$PYTHONPATH
 ```
 
+Finally, before running the demo, you need to download "cfg" and "models" folder from the following links and replace these two folder in ./human-tracking/ directory:
+
+https://drive.google.com/drive/folders/1-cxxqK9lYUKd9GVFlPR_Za5M3cz5kBU-?usp=sharing
+
+https://drive.google.com/drive/folders/1-cxxqK9lYUKd9GVFlPR_Za5M3cz5kBU-?usp=sharing
+
+
 ## DEMO
 
 Before run demo.py, make sure you have setuped your environment.
