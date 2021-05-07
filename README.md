@@ -7,8 +7,10 @@ Note that this project is an application-oriented project. We did not change the
 On the basis of the original siammask implementation of object tracking, these codes can realize that there is no need to manually select the tracking target, only a query picture of a person needs to be input, and the person with the highest match in the video is automatically identified and tracked.
 
 Here is an output example of these code:
+
 The query image:
 
+<img src="https://github.com/zzh-ed/human-tracking/blob/master/demo_query.jpg" width="105" height="305" /><br/>
 The output video:
 ![img](https://github.com/zzh-ed/human-tracking/blob/master/demo_output.gif)
 
