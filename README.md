@@ -1,9 +1,22 @@
 # Human-tracking
 
 ## Description 
-This project aims to combine three methods including Yolo, PCB and Siammask to acheive human tracking.
-Note that this project is an application-oriented project. We did not change the original algorithm, but adopted the author’s pre-training model and improved it with actual application requirements.
 
+### Background
+SiamMask is the current advanced target tracking algorithm, but this algorithm has limitations: before each tracking, the tracking target needs to be artificially defined, and the target cannot be reacquired after the target is lost. So this project aims to combine three methods including Yolo, PCB and Siammask to acheive human tracking without the manual initialization.
+
+### Implement
+The complete workflow of the system is shown:
+
+
+To deal with the manual initialization, I implement two new models, Yolo and PCB model, into the SiamMask model. For the YOLO model, I first set the target as person, and the Yolo Model can identify and segment the people in the that frame of video, and generate an image gallery. After the image gallery is created, the PCB model will compare the query image with all the images in the gallery for feature mapping, and return the image that both scores greater than the initial threshold and scores the highest in similarity as the target object. If there is no object that meets this condition, this frame will be skipped, and the same processing will be performed on the next frame until the target object is identified. This is a solution to automatically initialize SiamMask tracking without manually framing out the target.
+To deal with the target loss problem, I decide to set the threshold for the SiamMask tracking accuracy. SiamMask threshold means that the value below which the target is considered as lost and the target needs to be reinitialized, when SiamMask is tracking the target. When SiamMask tracks a target, it returns the similarity score of the target between frames. When this score decreases, it means that the target disappears or is occluded. Therefore, I set a SiamMask threshold. If the score is greater than the SiamMask threshold, the model will continue tracking and update the query image as the latest one. Otherwise, if the accuracy is lower than the particular threshold, meaning that the SiamMask may be tracking the wrong target, it will stop tracking and initialize again with the last updated query image.
+
+### Robustness 
+To ensure the robustness of the extended SiamMask model, I use the dynamic update method for threshold setting and the real-time update of query pictures method. In the process described above, the PCB initial threshold and SiamMask threshold are used. The PCB initial threshold refers to how much the score of the image in the gallery with the highest score needs to be reached when using PCB to recognize the target. If the PCB initial threshold is too high, the true target will be filtered out. If it is too low, it will cause other objects to be mistakenly regarded as targets when the target disappears. Therefore, here I use two initial thresholds. At the beginning of the video, the gap between the query image and the target will be relatively large, so I set a lower threshold. When the target is tracked, the model will continuously update the query picture with the currently tracked target. Then the PCB is used to match target the object, and the updated query image is used for matching. Since the gap between the query image and the true target reduces, I use a higher threshold to ensure the accuracy of target recognition. When SiamMask is tracking a target, it will return the similarity score of the target between frames. When this score decreases, it means that the target disappears or is occluded. Therefore, I set a SiamMask threshold for the model. When the score is lower than the SiamMask threshold, the SiamMask will stop working, and YOLO and PCB will be called to re-identify the target object.
+Therefore, the robustness of the extended model majorly depends on three parameters: an initial threshold for the PCB model, a reinitialized threshold for the PCB model and a threshold for the SiamMask model.
+
+## Output example
 On the basis of the original siammask implementation of object tracking, these codes can realize that there is no need to manually select the tracking target, only a query picture of a person needs to be input, and the person with the highest match in the video is automatically identified and tracked.
 
 Here is an output example of these code:
